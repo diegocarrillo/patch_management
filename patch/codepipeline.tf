@@ -1,10 +1,10 @@
 resource "aws_codepipeline" "codepipeline" {
   name     = "patch-pipeline"
-  role_arn = "${aws_iam_role.codePipeline_role.arn}"
-  tags     = "${var.tags}"
+  role_arn = aws_iam_role.codePipeline_role.arn
+  tags     = var.tags
 
   artifact_store {
-    location = "${aws_s3_bucket.patch_bucket-script.bucket}"
+    location = aws_s3_bucket.patch_bucket-script.bucket
     type     = "S3"
   }
 
@@ -21,7 +21,7 @@ resource "aws_codepipeline" "codepipeline" {
       output_artifacts = ["code"]
 
       configuration = {
-        S3Bucket             = "${aws_s3_bucket.patch_bucket-script.id}"
+        S3Bucket             = aws_s3_bucket.patch_bucket-script.id
         S3ObjectKey          = "patch.zip"
         PollForSourceChanges = "true"
       }
@@ -40,7 +40,7 @@ resource "aws_codepipeline" "codepipeline" {
       run_order = 1
 
       configuration = {
-               NotificationArn = "${aws_sns_topic.sns.arn}"
+               NotificationArn = aws_sns_topic.sns.arn
                CustomData = "Test"
                 #ExternalEntityLink = "${var.approve_url}"
       }
@@ -88,7 +88,7 @@ resource "aws_codepipeline" "codepipeline" {
       run_order  = 1
 
       configuration = {
-        NotificationArn    = "${aws_sns_topic.sns.arn}"
+        NotificationArn    = aws_sns_topic.sns.arn
         CustomData         = "Test"
         #ExternalEntityLink = "${var.approve_url}"
       }
@@ -123,7 +123,7 @@ resource "aws_codepipeline" "codepipeline" {
       run_order  = 1
 
       configuration = {
-        NotificationArn = "${aws_sns_topic.sns.arn}"
+        NotificationArn = aws_sns_topic.sns.arn
         CustomData = "Test"
 
         #ExternalEntityLink = "${var.approve_url}"

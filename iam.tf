@@ -49,30 +49,30 @@ data "aws_iam_policy_document" "role_policy_s3" {
 
 resource "aws_iam_role" "role" {
   name               = "${var.build_environment}_ec2_role"
-  assume_role_policy = "${data.aws_iam_policy_document.assume_policy.json}"
+  assume_role_policy = data.aws_iam_policy_document.assume_policy.json
 }
 
 resource "aws_iam_policy" "policy" {
   name   = "${var.build_environment}_ec2_policy"
-  policy = "${data.aws_iam_policy_document.role_policy.json}"
+  policy = data.aws_iam_policy_document.role_policy.json
 }
 
 resource "aws_iam_policy" "policy_s3" {
   name   = "${var.build_environment}_s3_policy"
-  policy = "${data.aws_iam_policy_document.role_policy_s3.json}"
+  policy = data.aws_iam_policy_document.role_policy_s3.json
 }
 
 resource "aws_iam_role_policy_attachment" "policy_attach" {
-  role       = "${aws_iam_role.role.name}"
-  policy_arn = "${aws_iam_policy.policy.arn}"
+  role       = aws_iam_role.role.name
+  policy_arn = aws_iam_policy.policy.arn
 }
 
 resource "aws_iam_role_policy_attachment" "policy_attach1" {
-  role       = "${aws_iam_role.role.name}"
-  policy_arn = "${aws_iam_policy.policy_s3.arn}"
+  role       = aws_iam_role.role.name
+  policy_arn = aws_iam_policy.policy_s3.arn
 }
 
 resource "aws_iam_role_policy_attachment" "policy_attach_ssm" {
-  role       = "${aws_iam_role.role.name}"
+  role       = aws_iam_role.role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
 }

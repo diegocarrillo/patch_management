@@ -5,7 +5,7 @@ data "aws_region" "current" {}
 resource "aws_s3_bucket" "patch_bucket" {
   bucket = "${var.core-environment}-${data.aws_caller_identity.current.account_id}-patch-bucket"
   acl    = "private"
-  tags   = "${var.tags}"
+  tags   = var.tags
   versioning {
     enabled = true
   }
@@ -21,7 +21,7 @@ resource "aws_s3_bucket" "patch_bucket" {
 resource "aws_s3_bucket" "patch_bucket-script" {
   bucket = "${var.core-environment}-${data.aws_caller_identity.current.account_id}-patch-scripts-bucket"
   acl    = "private"
-  tags   = "${var.tags}"
+  tags   = var.tags
   versioning {
     enabled = true
   }
@@ -41,8 +41,8 @@ data "archive_file" "zip_patch" {
 }
 
 resource "aws_s3_bucket_object" "patchupload" {
-   bucket = "${aws_s3_bucket.patch_bucket-script.bucket}"
+   bucket = aws_s3_bucket.patch_bucket-script.bucket
    key    = "patch.zip"
-   source = "${data.archive_file.zip_patch.output_path}"
-   etag   = "${data.archive_file.zip_patch.output_md5}"
+   source = data.archive_file.zip_patch.output_path
+   etag   = data.archive_file.zip_patch.output_md5
 }
