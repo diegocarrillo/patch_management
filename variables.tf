@@ -1,11 +1,11 @@
 variable "build_environment" {
-  type    = "string"
+  type    = string
   default = "dev"
-  description = "This is the build environment"
+  description = "Build environment"
 }
 
 variable "sns_topic_name" {
-  type    = "string"
-  default = "aws-serverless-patching"
+  type    = string
+  default = "aws-topic-patch"
   description = "SNS topic name"
 }

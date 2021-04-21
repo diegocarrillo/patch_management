@@ -1,5 +1,6 @@
 
 provider "aws" {
+    region = "us-east-1"
 }
 data "aws_region" "current" {}
 
@@ -9,7 +10,7 @@ locals {
   required_tags = {
     "Environment"    = "${var.build_environment}"
     "AutomationType" = "terraform"
-    "Application-name" = "AWS Sample CICD patch manager"
+    "Application-name" = "Patch management for EC2"
   }
 }
 
