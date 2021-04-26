@@ -1,5 +1,6 @@
 variable "build_environment" {
   type    = string
+  default = "dev"
 }
 
 variable "computetype" {
@@ -79,4 +80,9 @@ variable "region" {
 variable "tags" {
   description = "Additional Tags"
   type        = map
+
+  default = {
+    env = "dev"
+    owner = "diego"
+  }
 }
