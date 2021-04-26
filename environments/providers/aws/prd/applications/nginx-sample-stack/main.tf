@@ -13,6 +13,41 @@ terraform {
   }
 }
 
+# module "s3_bucket" {
+#   source = "terraform-aws-modules/s3-bucket/aws"
+#   bucket = local.s3_buckets[0]
+#   acl    = "private"
+#   block_public_acls = true
+#   block_public_policy = true
+#   ignore_public_acls = true
+#   restrict_public_buckets = true
+#   versioning = {
+#     enabled = true
+#   }
+#   server_side_encryption_configuration = {
+#     rule = {
+#       apply_server_side_encryption_by_default = {
+#         sse_algorithm     = "AES256"
+#         kms_master_key_id = null
+#       }
+#     }
+#   }
+#   tags = {
+#   }
+# }
+
+
+# resource "local_file" "out_tfvars" {
+#   filename = "${path.root}/../../${var.environment}/deploy.auto.tfvars"
+#   content = <<-EOF
+# s3_bucket = "${local.s3_buckets[1]}"
+# aws_region = "${var.aws_region}"
+# customer_name= "${var.customer_name}"
+# assumerole = "${var.assumerole}"
+# environment = “${var.environment}”
+#   EOF
+# }
+
 //Import the constants
 module "environment" {
   source = "../../"
