@@ -3,6 +3,6 @@
   "deploy_from": "1",
   "patch": {
     "1": ["yum update -y"],
-    "2": ["yum install httpd -y"]
+    "2": ["yum install jq -y"]
   }
 }

@@ -75,39 +75,39 @@ resource "aws_codepipeline" "codepipeline" {
     }
   }
 
-  # QA
-  stage {
-    name = "Build-for-QA"
+  # # QA
+  # stage {
+  #   name = "Build-for-QA"
 
-    action {
-      name       = "Approve-for-QA"
-      category   = "Approval"
-      owner      = "AWS"
-      provider   = "Manual"
-      version    = "1"
-      run_order  = 1
+  #   action {
+  #     name       = "Approve-for-QA"
+  #     category   = "Approval"
+  #     owner      = "AWS"
+  #     provider   = "Manual"
+  #     version    = "1"
+  #     run_order  = 1
 
-      configuration = {
-        NotificationArn    = aws_sns_topic.sns.arn
-        CustomData         = "Test"
-        #ExternalEntityLink = "${var.approve_url}"
-      }
-    }
+  #     configuration = {
+  #       NotificationArn    = aws_sns_topic.sns.arn
+  #       CustomData         = "Test"
+  #       #ExternalEntityLink = "${var.approve_url}"
+  #     }
+  #   }
 
-    action {
-      name            = "Build-for-QA"
-      category        = "Build"
-      owner           = "AWS"
-      provider        = "CodeBuild"
-      input_artifacts = ["code"]
-      version         = "1"
-      run_order       = 2
+  #   action {
+  #     name            = "Build-for-QA"
+  #     category        = "Build"
+  #     owner           = "AWS"
+  #     provider        = "CodeBuild"
+  #     input_artifacts = ["code"]
+  #     version         = "1"
+  #     run_order       = 2
 
-      configuration = {
-        ProjectName = "Build-qa"
-      }
-    }
-  }
+  #     configuration = {
+  #       ProjectName = "Build-qa"
+  #     }
+  #   }
+  # }
 
   #STAGE
 

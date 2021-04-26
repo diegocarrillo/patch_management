@@ -101,7 +101,7 @@ module "aws_autoscaling_group" {
 
 module "security_group" {
   source  = "../../../../../../modules/providers/aws/security_group/create_sg"
-  sg_name = "wordpress-poc-sg"
+  sg_name = "poc-sg"
   vpc_id  = data.terraform_remote_state.vpc.outputs.vpc_id
 }
 
